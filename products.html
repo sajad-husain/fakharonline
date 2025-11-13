@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Pakistani Fruits - Fakhar Online Products</title>
+    <meta name="description" content="Explore our complete collection of premium Pakistani mangoes, kinnow, and seasonal fruits. Export quality with farm-fresh guarantee.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --golden-yellow: #FFB300;
+            --vibrant-orange: #FF6B35;
+            --fresh-green: #4CAF50;
+            --warm-cream: #FFF8E1;
+            --deep-forest: #2E7D32;
+            --soft-coral: #FF8A65;
+            --charcoal-gray: #424242;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--warm-cream);
+            color: var(--charcoal-gray);
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-script {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-yellow));
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .filter-active {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-yellow));
+            color: white;
+        }
+        
+        .price-range-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 6px;
+            background: #ddd;
+            border-radius: 3px;
+            outline: none;
+        }
+        
+        .price-range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background: var(--vibrant-orange);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        
+        .price-range-slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            background: var(--vibrant-orange);
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-display text-2xl font-bold text-gradient">Fakhar Online</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">Home</a>
+                    <a href="products.html" class="text-orange-500 font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">About</a>
+                    <a href="blog.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">Blog</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="cart-btn" class="relative p-2 text-gray-700 hover:text-orange-500 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0V9a2 2 0 012-2h2a2 2 0 012 2v10.01M17 21v-2a2 2 0 00-2-2H9a2 2 0 00-2 2v2"></path>
+                        </svg>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <a href="https://wa.me/1234567890" class="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.03 22l5.25-1.38c1.45.79 3.08 1.21 4.76 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-24 pb-12 bg-gradient-to-r from-orange-400 to-yellow-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="font-display text-4xl md:text-6xl font-bold text-white mb-4">Premium Fruit Collection</h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                Discover our complete range of farm-fresh Pakistani fruits, carefully selected for their exceptional quality and taste
+            </p>
+        </div>
+    </section>
+
+    <!-- Filters and Products -->
+    <section class="py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Filters Sidebar -->
+                <div class="lg:w-1/4">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 sticky top-24">
+                        <h3 class="font-display text-xl font-bold text-gray-800 mb-6">Filter Products</h3>
+                        
+                        <!-- Category Filter -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-700 mb-3">Category</h4>
+                            <div class="space-y-2">
+                                <button class="filter-btn w-full text-left px-4 py-2 rounded-lg border border-gray-200 hover:border-orange-300 transition-colors" data-filter="all">
+                                    All Fruits
+                                </button>
+                                <button class="filter-btn w-full text-left px-4 py-2 rounded-lg border border-gray-200 hover:border-orange-300 transition-colors" data-filter="mango">
+                                    Mangoes
+                                </button>
+                                <button class="filter-btn w-full text-left px-4 py-2 rounded-lg border border-gray-200 hover:border-orange-300 transition-colors" data-filter="citrus">
+                                    Citrus Fruits
+                                </button>
+                                <button class="filter-btn w-full text-left px-4 py-2 rounded-lg border border-gray-200 hover:border-orange-300 transition-colors" data-filter="seasonal">
+                                    Seasonal Specials
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Price Range -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-700 mb-3">Price Range</h4>
+                            <div class="px-2">
+                                <input type="range" id="price-range" class="price-range-slider w-full" min="500" max="2000" value="2000">
+                                <div class="flex justify-between text-sm text-gray-600 mt-2">
+                                    <span>₨500</span>
+                                    <span id="price-display">₨2000</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Packaging Type -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-700 mb-3">Packaging</h4>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="packaging-filter mr-2" value="retail">
+                                    <span>Retail Boxes</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="packaging-filter mr-2" value="wholesale">
+                                    <span>Wholesale Crates</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="checkbox" class="packaging-filter mr-2" value="gift">
+                                    <span>Gift Sets</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <!-- Seasonal Availability -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-700 mb-3">Season</h4>
+                            <select id="season-filter" class="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-300">
+                                <option value="all">All Seasons</option>
+                                <option value="winter">Winter (Dec-Feb)</option>
+                                <option value="spring">Spring (Mar-May)</option>
+                                <option value="summer">Summer (Jun-Aug)</option>
+                                <option value="autumn">Autumn (Sep-Nov)</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Clear Filters -->
+                        <button id="clear-filters" class="w-full bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                            Clear All Filters
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="lg:w-3/4">
+                    <div class="flex justify-between items-center mb-6">
+                        <p class="text-gray-600"><span id="product-count">12</span> products found</p>
+                        <select id="sort-select" class="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-300">
+                            <option value="name">Sort by Name</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="rating">Highest Rated</option>
+                        </select>
+                    </div>
+                    
+                    <div id="products-grid" class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
+                        <!-- Products will be dynamically loaded here -->
+                    </div>
+                    
+                    <!-- Load More Button -->
+                    <div class="text-center mt-12">
+                        <button id="load-more" class="btn-primary text-white px-8 py-3 rounded-lg font-semibold">
+                            Load More Products
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasonal Availability Chart -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-4">Seasonal Availability Guide</h2>
+                <p class="text-xl text-gray-600">Plan your fruit purchases with our comprehensive seasonal calendar</p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8 reveal">
+                <div id="seasonal-chart" style="height: 500px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="font-display text-3xl font-bold text-gradient mb-4">Fakhar Online</h3>
+                <p class="text-gray-300 mb-6">Bringing farm-fresh mangoes and kinnow to your doorstep</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://wa.me/1234567890" class="text-green-400 hover:text-green-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.03 22l5.25-1.38c1.45.79 3.08 1.21 4.76 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-pink-400 hover:text-pink-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z.017 0z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-400 text-sm">© 2024 Fakhar Online. All rights reserved. Crafted with ❤️ in Pakistan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="font-display text-xl font-bold">Shopping Cart</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-gray-500 text-center">Your cart is empty</p>
+        </div>
+        
+        <div class="border-t p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">Total:</span>
+                <span id="cart-total" class="font-bold text-xl text-orange-500">₨0</span>
+            </div>
+            <button id="checkout-btn" class="w-full btn-primary text-white py-3 rounded-lg font-semibold" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <script>
+        // Products data
+        const products = [
+            {
+                id: 'chaunsa-premium',
+                name: 'Premium Chaunsa Mango',
+                category: 'mango',
+                price: 1200,
+                rating: 4.8,
+                image: 'https://kimi-web-img.moonshot.cn/img/liciousmangoes.com/7df3ff33a7f258283b108cb7ce9878c4da61f876.jpg',
+                description: 'The king of mangoes, known for exceptional sweetness and rich aroma. Grown in the fertile plains of Multan.',
+                season: 'summer',
+                packaging: ['retail', 'wholesale', 'gift'],
+                benefits: ['Rich in Vitamin A & C', 'Natural sweetness', 'Boosts immunity'],
+                origin: 'Multan, Punjab'
+            },
+            {
+                id: 'anwar-ratol-golden',
+                name: 'Golden Anwar Ratol',
+                category: 'mango',
+                price: 1400,
+                rating: 4.9,
+                image: 'https://kimi-web-img.moonshot.cn/img/nawabmango.com/ceccc1cf9e5bc7a72f6b712ed18987400bca14ee.jpg',
+                description: 'A delicate variety with honey-like sweetness and smooth texture. Perfect for desserts and fresh eating.',
+                season: 'summer',
+                packaging: ['retail', 'gift'],
+                benefits: ['Honey-like sweetness', 'Smooth texture', 'Perfect for desserts'],
+                origin: 'Punjab'
+            },
+            {
+                id: 'sindhri-large',
+                name: 'Sindhri Mango',
+                category: 'mango',
+                price: 1000,
+                rating: 4.6,
+                image: 'https://kimi-web-img.moonshot.cn/img/bsg-i.nbxc.com/1c704d5bfb5a954481cbfc7c08a30ac9fa0bcecb.jpg',
+                description: 'The pride of Sindh, known for its large size and unique flavor profile. A true delicacy for mango connoisseurs.',
+                season: 'summer',
+                packaging: ['retail', 'wholesale'],
+                benefits: ['Large fruit size', 'Unique flavor', 'High fiber content'],
+                origin: 'Sindh'
+            },
+            {
+                id: 'premium-kinnow',
+                name: 'Premium Kinnow',
+                category: 'citrus',
+                price: 800,
+                rating: 4.7,
+                image: 'https://kimi-web-img.moonshot.cn/img/www.mangonation.pk/85fae623a4bada8cb04f16e7a750dc1c9a51169a.jpg',
+                description: 'Pakistan\'s finest citrus fruit, bursting with vitamin C and refreshing flavor. Perfect for winter wellness.',
+                season: 'winter',
+                packaging: ['retail', 'wholesale', 'gift'],
+                benefits: ['High Vitamin C', 'Boosts immunity', 'Refreshing taste'],
+                origin: 'Sargodha, Punjab'
+            },
+            {
+                id: 'blood-orange',
+                name: 'Blood Orange',
+                category: 'citrus',
+                price: 900,
+                rating: 4.5,
+                image: 'https://kimi-web-img.moonshot.cn/img/freshleafuae.com/ec737412dd7624ef1070a442a7aff2c3eaec418a.jpg',
+                description: 'Exotic citrus with deep red flesh and unique berry-like flavor. Rich in antioxidants and vitamin C.',
+                season: 'winter',
+                packaging: ['retail', 'gift'],
+                benefits: ['Rich in antioxidants', 'Unique flavor', 'Heart healthy'],
+                origin: 'Punjab'
+            },
+            {
+                id: 'sweet-lime',
+                name: 'Sweet Lime (Mousami)',
+                category: 'citrus',
+                price: 700,
+                rating: 4.4,
+                image: 'https://kimi-web-img.moonshot.cn/img/freshleafuae.com/7c506c9960b7e3402743c87d8fc5790e45ad2cf9.jpg',
+                description: 'Refreshing citrus fruit with gentle sweetness and low acidity. Perfect for juicing and fresh consumption.',
+                season: 'winter',
+                packaging: ['retail', 'wholesale'],
+                benefits: ['Gentle on stomach', 'Hydrating', 'Low acidity'],
+                origin: 'Multan, Punjab'
+            },
+            {
+                id: 'pomegranate-premium',
+                name: 'Premium Pomegranate',
+                category: 'seasonal',
+                price: 1500,
+                rating: 4.8,
+                image: 'https://kimi-web-img.moonshot.cn/img/s.alicdn.com/ee0b772d75e2d28888654737d0e0148b6c1cfed2.jpg',
+                description: 'Ruby-red arils packed with antioxidants and nutrients. Known as the superfruit for heart health.',
+                season: 'autumn',
+                packaging: ['retail', 'gift'],
+                benefits: ['Superfruit', 'Heart healthy', 'Anti-inflammatory'],
+                origin: 'Balochistan'
+            },
+            {
+                id: 'guava-white',
+                name: 'White Guava',
+                category: 'seasonal',
+                price: 600,
+                rating: 4.3,
+                image: 'https://kimi-web-img.moonshot.cn/img/img11.fr-trading.com/0403a3e015c89bf9954956b475a249942ab094c1.jpg',
+                description: 'Tropical fruit with distinctive flavor and aroma. Rich in vitamin C and dietary fiber.',
+                season: 'autumn',
+                packaging: ['retail', 'wholesale'],
+                benefits: ['High Vitamin C', 'Dietary fiber', 'Digestive health'],
+                origin: 'Punjab'
+            },
+            {
+                id: 'grapes-red',
+                name: 'Red Grapes',
+                category: 'seasonal',
+                price: 1100,
+                rating: 4.6,
+                image: 'https://kimi-web-img.moonshot.cn/img/freshleafuae.com/f69d1be78a9ce1641d0f252aa18f6b3df40cd021.jpg',
+                description: 'Juicy red grapes with natural sweetness. Perfect for snacking, salads, and making fresh juice.',
+                season: 'autumn',
+                packaging: ['retail', 'wholesale'],
+                benefits: ['Antioxidants', 'Heart health', 'Natural energy'],
+                origin: 'Northern Pakistan'
+            }
+        ];
+
+        let filteredProducts = [...products];
+        let currentPage = 1;
+        const productsPerPage = 6;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeProducts();
+            initializeFilters();
+            initializeSeasonalChart();
+            initializeScrollReveal();
+            updateCartDisplay();
+            initializeCart();
+        });
+
+        // Initialize products display
+        function initializeProducts() {
+            renderProducts();
+            updateProductCount();
+        }
+
+        // Render products
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const productsToShow = filteredProducts.slice(0, endIndex);
+
+            grid.innerHTML = productsToShow.map(product => `
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden reveal" data-category="${product.category}" data-season="${product.season}" data-price="${product.price}">
+                    <div class="relative">
+                        <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                            ${getSeasonLabel(product.season)}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold text-gray-800 mb-2">${product.name}</h3>
+                        <p class="text-gray-600 mb-3 text-sm">${product.description}</p>
+                        
+                        <div class="flex items-center mb-3">
+                            <div class="flex text-yellow-400 mr-2">
+                                ${'★'.repeat(Math.floor(product.rating))}${'☆'.repeat(5 - Math.floor(product.rating))}
+                            </div>
+                            <span class="text-gray-500 text-sm">(${product.rating})</span>
+                        </div>
+                        
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-2xl font-bold text-orange-500">₨${product.price}/kg</span>
+                            <span class="text-sm text-gray-500">${product.origin}</span>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <p class="text-sm font-semibold text-gray-700 mb-2">Benefits:</p>
+                            <div class="flex flex-wrap gap-1">
+                                ${product.benefits.map(benefit => `
+                                    <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">${benefit}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <button class="w-full btn-primary text-white py-3 rounded-lg font-semibold" 
+                                onclick="addToCart('${product.id}', '${product.name}', ${product.price}, '${product.image}')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('load-more');
+            loadMoreBtn.style.display = endIndex >= filteredProducts.length ? 'none' : 'block';
+        }
+
+        // Initialize filters
+        function initializeFilters() {
+            // Category filters
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-active'));
+                    this.classList.add('filter-active');
+                    
+                    const filter = this.dataset.filter;
+                    filterProducts();
+                });
+            });
+
+            // Price range
+            const priceRange = document.getElementById('price-range');
+            const priceDisplay = document.getElementById('price-display');
+            
+            priceRange.addEventListener('input', function() {
+                priceDisplay.textContent = `₨${this.value}`;
+                filterProducts();
+            });
+
+            // Packaging filters
+            document.querySelectorAll('.packaging-filter').forEach(checkbox => {
+                checkbox.addEventListener('change', filterProducts);
+            });
+
+            // Season filter
+            document.getElementById('season-filter').addEventListener('change', filterProducts);
+
+            // Sort
+            document.getElementById('sort-select').addEventListener('change', function() {
+                sortProducts(this.value);
+            });
+
+            // Clear filters
+            document.getElementById('clear-filters').addEventListener('click', clearFilters);
+
+            // Load more
+            document.getElementById('load-more').addEventListener('click', function() {
+                currentPage++;
+                renderProducts();
+            });
+        }
+
+        // Filter products
+        function filterProducts() {
+            const activeCategory = document.querySelector('.filter-btn.filter-active').dataset.filter;
+            const maxPrice = parseInt(document.getElementById('price-range').value);
+            const selectedSeason = document.getElementById('season-filter').value;
+            const selectedPackaging = Array.from(document.querySelectorAll('.packaging-filter:checked')).map(cb => cb.value);
+
+            filteredProducts = products.filter(product => {
+                const categoryMatch = activeCategory === 'all' || product.category === activeCategory;
+                const priceMatch = product.price <= maxPrice;
+                const seasonMatch = selectedSeason === 'all' || product.season === selectedSeason;
+                const packagingMatch = selectedPackaging.length === 0 || selectedPackaging.some(pkg => product.packaging.includes(pkg));
+
+                return categoryMatch && priceMatch && seasonMatch && packagingMatch;
+            });
+
+            currentPage = 1;
+            renderProducts();
+            updateProductCount();
+        }
+
+        // Sort products
+        function sortProducts(sortBy) {
+            switch(sortBy) {
+                case 'name':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'rating':
+                    filteredProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+            }
+            
+            renderProducts();
+        }
+
+        // Clear all filters
+        function clearFilters() {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('filter-active'));
+            document.querySelector('[data-filter="all"]').classList.add('filter-active');
+            document.getElementById('price-range').value = 2000;
+            document.getElementById('price-display').textContent = '₨2000';
+            document.getElementById('season-filter').value = 'all';
+            document.querySelectorAll('.packaging-filter').forEach(cb => cb.checked = false);
+            document.getElementById('sort-select').value = 'name';
+            
+            filteredProducts = [...products];
+            currentPage = 1;
+            renderProducts();
+            updateProductCount();
+        }
+
+        // Update product count
+        function updateProductCount() {
+            document.getElementById('product-count').textContent = filteredProducts.length;
+        }
+
+        // Get season label
+        function getSeasonLabel(season) {
+            const labels = {
+                'winter': 'Winter Special',
+                'spring': 'Spring Fresh',
+                'summer': 'Summer Peak',
+                'autumn': 'Autumn Harvest'
+            };
+            return labels[season] || 'Available';
+        }
+
+        // Initialize seasonal chart
+        function initializeSeasonalChart() {
+            if (document.getElementById('seasonal-chart')) {
+                const chart = echarts.init(document.getElementById('seasonal-chart'));
+                
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                
+                const option = {
+                    title: {
+                        text: 'Fruit Availability Throughout the Year',
+                        left: 'center',
+                        textStyle: {
+                            fontSize: 18,
+                            fontWeight: 'bold'
+                        }
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+                        axisPointer: {
+                            type: 'cross'
+                        }
+                    },
+                    legend: {
+                        data: ['Chaunsa Mango', 'Anwar Ratol', 'Sindhri Mango', 'Kinnow', 'Pomegranate'],
+                        bottom: 10
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '4%',
+                        bottom: '15%',
+                        containLabel: true
+                    },
+                    xAxis: {
+                        type: 'category',
+                        data: months
+                    },
+                    yAxis: {
+                        type: 'value',
+                        name: 'Availability (1-10)',
+                        min: 0,
+                        max: 10
+                    },
+                    series: [
+                        {
+                            name: 'Chaunsa Mango',
+                            type: 'line',
+                            data: [0, 0, 0, 0, 3, 6, 9, 10, 8, 4, 0, 0],
+                            smooth: true,
+                            lineStyle: { color: '#FFB300' },
+                            itemStyle: { color: '#FFB300' }
+                        },
+                        {
+                            name: 'Anwar Ratol',
+                            type: 'line',
+                            data: [0, 0, 0, 2, 5, 8, 9, 7, 3, 0, 0, 0],
+                            smooth: true,
+                            lineStyle: { color: '#FF6B35' },
+                            itemStyle: { color: '#FF6B35' }
+                        },
+                        {
+                            name: 'Sindhri Mango',
+                            type: 'line',
+                            data: [0, 0, 0, 1, 9, 10, 6, 2, 0, 0, 0, 0],
+                            smooth: true,
+                            lineStyle: { color: '#4CAF50' },
+                            itemStyle: { color: '#4CAF50' }
+                        },
+                        {
+                            name: 'Kinnow',
+                            type: 'line',
+                            data: [8, 10, 9, 4, 0, 0, 0, 0, 0, 2, 6, 9],
+                            smooth: true,
+                            lineStyle: { color: '#FF8A65' },
+                            itemStyle: { color: '#FF8A65' }
+                        },
+                        {
+                            name: 'Pomegranate',
+                            type: 'line',
+                            data: [0, 0, 0, 0, 0, 0, 0, 3, 8, 10, 6, 2],
+                            smooth: true,
+                            lineStyle: { color: '#2E7D32' },
+                            itemStyle: { color: '#2E7D32' }
+                        }
+                    ]
+                };
+                
+                chart.setOption(option);
+                
+                window.addEventListener('resize', function() {
+                    chart.resize();
+                });
+            }
+        }
+
+        // Initialize scroll reveal
+        function initializeScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            revealElements.forEach(element => {
+                revealObserver.observe(element);
+            });
+        }
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

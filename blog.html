@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fakhar Online Blog - Fruit Stories, Recipes & Farming Insights</title>
+    <meta name="description" content="Discover fascinating stories about Pakistani fruits, traditional recipes, farming insights, and nutritional tips from our family orchard experts.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <style>
+        :root {
+            --golden-yellow: #FFB300;
+            --vibrant-orange: #FF6B35;
+            --fresh-green: #4CAF50;
+            --warm-cream: #FFF8E1;
+            --deep-forest: #2E7D32;
+            --soft-coral: #FF8A65;
+            --charcoal-gray: #424242;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--warm-cream);
+            color: var(--charcoal-gray);
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-script {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-yellow));
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .admin-panel {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .rich-editor {
+            min-height: 300px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 16px;
+            background: white;
+        }
+        
+        .rich-editor:focus {
+            outline: none;
+            border-color: var(--vibrant-orange);
+        }
+        
+        .category-tag {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-yellow));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .reading-time {
+            color: #666;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="font-display text-2xl font-bold text-gradient">Fakhar Online</a>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">About</a>
+                    <a href="blog.html" class="text-orange-500 font-medium">Blog</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="cart-btn" class="relative p-2 text-gray-700 hover:text-orange-500 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0V9a2 2 0 012-2h2a2 2 0 012 2v10.01M17 21v-2a2 2 0 00-2-2H9a2 2 0 00-2 2v2"></path>
+                        </svg>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <a href="https://wa.me/1234567890" class="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.03 22l5.25-1.38c1.45.79 3.08 1.21 4.76 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2z"/>
+                        </svg>
+                    </a>
+                    <button id="admin-toggle" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                        Admin
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="pt-24 pb-12 bg-gradient-to-r from-orange-400 to-yellow-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="font-display text-4xl md:text-6xl font-bold text-white mb-4">Fruit Stories & Insights</h1>
+            <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                Discover fascinating stories about Pakistani fruits, traditional recipes, farming insights, and nutritional tips
+            </p>
+        </div>
+    </section>
+
+    <!-- Featured Article -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <img src="resources/harvest-festival-spread.jpg" alt="Featured Article" class="w-full h-96 object-cover rounded-2xl shadow-lg">
+                </div>
+                <div class="reveal">
+                    <div class="category-tag mb-4">Featured Story</div>
+                    <h2 class="font-display text-3xl md:text-4xl font-bold text-gray-800 mb-6">The Golden Heritage of Pakistani Mangoes</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+                        Explore the rich history and cultural significance of Pakistan's most beloved fruit. From the legendary Chaunsa 
+                        to the delicate Anwar Ratol, discover what makes Pakistani mangoes the finest in the world.
+                    </p>
+                    <div class="flex items-center mb-6">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" alt="Author" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-semibold text-gray-800">Ahmed Fakhar</p>
+                            <p class="text-gray-500 text-sm">Third Generation Farmer</p>
+                        </div>
+                        <div class="ml-auto reading-time">8 min read</div>
+                    </div>
+                    <a href="#" class="btn-primary text-white px-6 py-3 rounded-lg font-semibold inline-flex items-center" onclick="openArticle('featured-article')">
+                        Read Full Story
+                        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Categories -->
+    <section class="py-12 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-wrap justify-center gap-4 mb-12">
+                <button class="category-filter active bg-orange-500 text-white px-6 py-2 rounded-full font-semibold" data-category="all">
+                    All Stories
+                </button>
+                <button class="category-filter bg-white text-gray-700 px-6 py-2 rounded-full font-semibold hover:bg-orange-100 transition-colors" data-category="recipes">
+                    Recipes
+                </button>
+                <button class="category-filter bg-white text-gray-700 px-6 py-2 rounded-full font-semibold hover:bg-orange-100 transition-colors" data-category="farming">
+                    Farming Stories
+                </button>
+                <button class="category-filter bg-white text-gray-700 px-6 py-2 rounded-full font-semibold hover:bg-orange-100 transition-colors" data-category="nutrition">
+                    Nutrition Tips
+                </button>
+                <button class="category-filter bg-white text-gray-700 px-6 py-2 rounded-full font-semibold hover:bg-orange-100 transition-colors" data-category="culture">
+                    Cultural Heritage
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Articles Grid -->
+    <section class="pb-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="articles-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Articles will be dynamically loaded here -->
+            </div>
+            
+            <div class="text-center mt-12">
+                <button id="load-more-articles" class="btn-primary text-white px-8 py-3 rounded-lg font-semibold">
+                    Load More Articles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Panel (Hidden by default) -->
+    <div id="admin-panel" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="admin-panel bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6 border-b flex justify-between items-center">
+                    <h3 class="font-display text-2xl font-bold text-white">Blog Admin Panel</h3>
+                    <button id="close-admin" class="text-white hover:text-gray-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="p-6">
+                    <!-- Article Form -->
+                    <form id="article-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-white font-semibold mb-2">Article Title</label>
+                                <input type="text" id="article-title" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-orange-300" placeholder="Enter article title">
+                            </div>
+                            <div>
+                                <label class="block text-white font-semibold mb-2">Category</label>
+                                <select id="article-category" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-orange-300">
+                                    <option value="recipes">Recipes</option>
+                                    <option value="farming">Farming Stories</option>
+                                    <option value="nutrition">Nutrition Tips</option>
+                                    <option value="culture">Cultural Heritage</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white font-semibold mb-2">Article Summary</label>
+                            <textarea id="article-summary" rows="3" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-orange-300" placeholder="Write a brief summary of the article"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white font-semibold mb-2">Article Content</label>
+                            <div class="rich-editor" id="article-content" contenteditable="true" data-placeholder="Write your article content here...">
+                            </div>
+                        </div>
+                        
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-white font-semibold mb-2">Author Name</label>
+                                <input type="text" id="article-author" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-orange-300" placeholder="Author name">
+                            </div>
+                            <div>
+                                <label class="block text-white font-semibold mb-2">Reading Time (minutes)</label>
+                                <input type="number" id="article-reading-time" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-orange-300" placeholder="5" min="1">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-white font-semibold mb-2">Article Image URL</label>
+                            <input type="url" id="article-image" class="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:border-orange-300" placeholder="https://example.com/image.jpg">
+                        </div>
+                        
+                        <div class="flex space-x-4">
+                            <button type="submit" class="bg-green-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-600 transition-colors">
+                                Publish Article
+                            </button>
+                            <button type="button" id="save-draft" class="bg-gray-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-gray-600 transition-colors">
+                                Save as Draft
+                            </button>
+                            <button type="button" id="preview-article" class="bg-blue-500 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                                Preview
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article Modal -->
+    <div id="article-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full max-h-screen overflow-y-auto">
+                <div class="p-6 border-b flex justify-between items-center">
+                    <h3 id="modal-title" class="font-display text-2xl font-bold text-gray-800"></h3>
+                    <button id="close-article" class="text-gray-500 hover:text-gray-700">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                
+                <div class="p-6">
+                    <div id="modal-content" class="prose max-w-none">
+                        <!-- Article content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="font-display text-3xl font-bold text-gradient mb-4">Fakhar Online</h3>
+                <p class="text-gray-300 mb-6">Bringing farm-fresh mangoes and kinnow to your doorstep</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://wa.me/1234567890" class="text-green-400 hover:text-green-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.03 22l5.25-1.38c1.45.79 3.08 1.21 4.76 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-pink-400 hover:text-pink-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z.017 0z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-400 text-sm">© 2024 Fakhar Online. All rights reserved. Crafted with ❤️ in Pakistan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="font-display text-xl font-bold">Shopping Cart</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-gray-500 text-center">Your cart is empty</p>
+        </div>
+        
+        <div class="border-t p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">Total:</span>
+                <span id="cart-total" class="font-bold text-xl text-orange-500">₨0</span>
+            </div>
+            <button id="checkout-btn" class="w-full btn-primary text-white py-3 rounded-lg font-semibold" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <script>
+        // Blog articles data
+        const articles = [
+            {
+                id: 'mango-heritage',
+                title: 'The Golden Heritage of Pakistani Mangoes',
+                category: 'culture',
+                summary: 'Explore the rich history and cultural significance of Pakistan\'s most beloved fruit.',
+                content: `
+                    <h2>The Royal Fruit of Pakistan</h2>
+                    <p>Pakistani mangoes are not just fruits; they are a cultural phenomenon, a symbol of summer abundance, and a source of national pride. With over 70 varieties grown across the country, each mango tells a unique story of heritage and tradition.</p>
+                    
+                    <h3>Chaunsa: The King of Mangoes</h3>
+                    <p>The Chaunsa mango, originally from the Rahim Yar Khan district, is renowned worldwide for its exceptional sweetness and rich aroma. Named after the village of Chaunsa, this variety has become synonymous with Pakistani mango excellence.</p>
+                    
+                    <h3>Anwar Ratol: The Diplomat\'s Choice</h3>
+                    <p>This delicate variety, with its honey-like sweetness and smooth texture, has graced the tables of royalty and diplomats. Its cultivation requires precise timing and care, making it one of the most prized mango varieties.</p>
+                    
+                    <h3>Sindhri: The Pride of Sindh</h3>
+                    <p>Grown in the hot, dry climate of Sindh, these large, oval mangoes are known for their unique flavor profile and impressive size. The Sindhri harvest marks the beginning of mango season in Pakistan.</p>
+                    
+                    <h2>Cultural Significance</h2>
+                    <p>Mangoes in Pakistan are more than just a fruit; they are intertwined with celebrations, poetry, and social customs. From mango festivals to family gatherings, this fruit brings people together in the spirit of shared joy.</p>
+                `,
+                author: 'Ahmed Fakhar',
+                readingTime: 8,
+                image: 'resources/harvest-festival-spread.jpg',
+                date: '2024-11-13'
+            },
+            {
+                id: 'kinnow-health-benefits',
+                title: 'Winter Wellness: The Power of Pakistani Kinnow',
+                category: 'nutrition',
+                summary: 'Discover the incredible health benefits of Pakistan\'s finest citrus fruit and why it should be your winter companion.',
+                content: `
+                    <h2>The Vitamin C Powerhouse</h2>
+                    <p>Pakistani kinnow, grown primarily in the Sargodha region, is one of the most nutrient-dense citrus fruits in the world. A single kinnow provides more than 100% of your daily vitamin C needs, making it an essential part of winter wellness.</p>
+                    
+                    <h3>Immune System Boost</h3>
+                    <p>The high vitamin C content in kinnow helps strengthen your immune system, protecting you from common winter illnesses like colds and flu. Regular consumption can reduce the duration and severity of seasonal sickness.</p>
+                    
+                    <h3>Natural Detoxification</h3>
+                    <p>Kinnow acts as a natural detoxifier, helping your body eliminate harmful toxins. The antioxidants present in this citrus fruit support liver function and promote overall cellular health.</p>
+                    
+                    <h3>Heart Health Benefits</h3>
+                    <p>The flavonoids and potassium in kinnow support cardiovascular health by helping to regulate blood pressure and reduce cholesterol levels. The natural fiber content also aids in maintaining healthy cholesterol ratios.</p>
+                    
+                    <h2>Traditional Uses</h2>
+                    <p>In Pakistani households, kinnow juice is often given to children and elderly family members during winter months. The fruit is also used in traditional remedies for digestive issues and as a natural energy booster.</p>
+                `,
+                author: 'Dr. Sarah Khan',
+                readingTime: 6,
+                image: 'https://kimi-web-img.moonshot.cn/img/www.mangonation.pk/85fae623a4bada8cb04f16e7a750dc1c9a51169a.jpg',
+                date: '2024-11-12'
+            },
+            {
+                id: 'traditional-mango-recipes',
+                title: '5 Traditional Pakistani Mango Recipes You Must Try',
+                category: 'recipes',
+                summary: 'From classic mango lassi to innovative desserts, explore authentic Pakistani recipes featuring our favorite fruit.',
+                content: `
+                    <h2>Mango Lassi - The Classic Cooler</h2>
+                    <p>This refreshing yogurt-based drink is a staple in Pakistani households during summer. Made with fresh mangoes, yogurt, and a touch of cardamom, it's the perfect way to beat the heat.</p>
+                    
+                    <h3>Ingredients:</h3>
+                    <ul>
+                        <li>2 cups fresh mango pulp</li>
+                        <li>2 cups chilled yogurt</li>
+                        <li>4 tablespoons sugar (adjust to taste)</li>
+                        <li>1/4 teaspoon cardamom powder</li>
+                        <li>Ice cubes and mint leaves for serving</li>
+                    </ul>
+                    
+                    <h2>Mango Kulfi - Frozen Delight</h2>
+                    <p>This traditional frozen dessert combines the richness of condensed milk with the sweetness of mangoes, creating an unforgettable treat.</p>
+                    
+                    <h2>Aam Ka Murabba - Sweet Preserve</h2>
+                    <p>A traditional mango preserve that captures the essence of summer in a jar. This sweet and tangy condiment pairs perfectly with roti or as a spread.</p>
+                    
+                    <h2>Mango Phirni - Creamy Rice Pudding</h2>
+                    <p>A luxurious dessert made with ground rice, milk, and fresh mango pulp, garnished with almonds and pistachios.</p>
+                    
+                    <h2>Mango Chaat - Sweet & Spicy Snack</h2>
+                    <p>A unique street food favorite that combines ripe mangoes with spices, creating a perfect balance of sweet, sour, and spicy flavors.</p>
+                `,
+                author: 'Fatima Sheikh',
+                readingTime: 10,
+                image: 'https://kimi-web-img.moonshot.cn/img/nawabmango.com/ceccc1cf9e5bc7a72f6b712ed18987400bca14ee.jpg',
+                date: '2024-11-11'
+            },
+            {
+                id: 'sustainable-farming-practices',
+                title: 'Sustainable Farming: Our Commitment to the Earth',
+                category: 'farming',
+                summary: 'Learn about our eco-friendly farming practices that preserve Pakistan\'s agricultural heritage while protecting the environment.',
+                content: `
+                    <h2>Water Conservation Techniques</h2>
+                    <p>Our orchards use advanced drip irrigation systems that reduce water consumption by up to 50% compared to traditional flood irrigation. This precision watering ensures optimal growth while conserving precious water resources.</p>
+                    
+                    <h3>Integrated Pest Management</h3>
+                    <p>We employ natural pest control methods using beneficial insects, crop rotation, and organic treatments. This approach reduces chemical usage by 80% while maintaining healthy ecosystems in our orchards.</p>
+                    
+                    <h3>Soil Health Maintenance</h3>
+                    <p>Regular soil testing and organic composting ensure our soil remains fertile and nutrient-rich. We use cover cropping and natural fertilizers to maintain optimal soil conditions for fruit production.</p>
+                    
+                    <h3>Biodiversity Conservation</h3>
+                    <p>Our orchards maintain diverse ecosystems with native plants and flowers that support local wildlife. This biodiversity creates natural balance and reduces the need for external interventions.</p>
+                    
+                    <h2>Community Impact</h2>
+                    <p>Our sustainable practices extend beyond environmental conservation to community development. We provide training to local farmers, ensuring these eco-friendly methods spread throughout the region.</p>
+                `,
+                author: 'Hassan Fakhar',
+                readingTime: 7,
+                image: 'resources/hero-mango-orchard.jpg',
+                date: '2024-11-10'
+            },
+            {
+                id: 'seasonal-eating-guide',
+                title: 'Your Complete Guide to Seasonal Fruit Eating in Pakistan',
+                category: 'nutrition',
+                summary: 'Discover the best fruits for each season and how to maximize their nutritional benefits throughout the year.',
+                content: `
+                    <h2>Winter Fruits (December - February)</h2>
+                    <p>Winter brings an abundance of citrus fruits including kinnow, oranges, and sweet limes. These vitamin C-rich fruits boost immunity during the cold months and provide natural energy.</p>
+                    
+                    <h3>Spring Delights (March - May)</h3>
+                    <p>Spring introduces strawberries, loquats, and early mangoes. This is the perfect time to enjoy fresh, light fruits that help transition from winter to summer.</p>
+                    
+                    <h3>Summer Abundance (June - August)</h3>
+                    <p>The peak mango season brings varieties like Sindhri, Chaunsa, and Anwar Ratol. Watermelon, muskmelon, and other hydrating fruits help beat the summer heat.</p>
+                    
+                    <h3>Autumn Harvest (September - November)</h3>
+                    <p>Autumn offers grapes, pomegranates, guavas, and apples. These antioxidant-rich fruits prepare the body for winter and provide sustained energy.</p>
+                    
+                    <h2>Nutritional Benefits by Season</h2>
+                    <p>Eating seasonally ensures maximum nutritional value as fruits are consumed at their peak ripeness. Seasonal eating also supports local agriculture and reduces environmental impact.</p>
+                `,
+                author: 'Dr. Ayesha Malik',
+                readingTime: 9,
+                image: 'https://kimi-web-img.moonshot.cn/img/bsg-i.nbxc.com/1c704d5bfb5a954481cbfc7c08a30ac9fa0bcecb.jpg',
+                date: '2024-11-09'
+            },
+            {
+                id: 'mango-festival-traditions',
+                title: 'Mango Festivals: Celebrating Pakistan\'s Favorite Fruit',
+                category: 'culture',
+                summary: 'Explore the vibrant mango festival traditions across Pakistan and how communities celebrate this beloved fruit.',
+                content: `
+                    <h2>The Spirit of Mango Season</h2>
+                    <p>Mango season in Pakistan is more than just a harvest period; it's a time of celebration, community gatherings, and cultural festivities that bring people together across all regions.</p>
+                    
+                    <h3>Multan Mango Festival</h3>
+                    <p>The annual Multan Mango Festival showcases the finest varieties from Punjab, featuring competitions, cultural performances, and mango tasting sessions that attract visitors from around the world.</p>
+                    
+                    <h3>Sindh Mango Celebrations</h3>
+                    <p>In Sindh, mango season is marked by community feasts where families share their harvest and traditional mango-based dishes, strengthening social bonds and cultural identity.</p>
+                    
+                    <h3>Traditional Mango Poetry</h3>
+                    <p>Pakistani poetry has long celebrated mangoes as symbols of love, beauty, and abundance. Classical poets like Mirza Ghalib wrote extensively about mangoes, elevating them to artistic subjects.</p>
+                    
+                    <h2>Modern Celebrations</h2>
+                    <p>Today's mango festivals combine traditional elements with modern attractions, including cooking competitions, agricultural exhibitions, and educational programs about sustainable farming.</p>
+                `,
+                author: 'Zainab Rahman',
+                readingTime: 8,
+                image: 'resources/harvest-festival-spread.jpg',
+                date: '2024-11-08'
+            }
+        ];
+
+        let filteredArticles = [...articles];
+        let currentPage = 1;
+        const articlesPerPage = 6;
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderArticles();
+            initializeFilters();
+            initializeAdminPanel();
+            initializeScrollReveal();
+            updateCartDisplay();
+            initializeCart();
+        });
+
+        // Render articles
+        function renderArticles() {
+            const grid = document.getElementById('articles-grid');
+            const startIndex = (currentPage - 1) * articlesPerPage;
+            const endIndex = startIndex + articlesPerPage;
+            const articlesToShow = filteredArticles.slice(0, endIndex);
+
+            grid.innerHTML = articlesToShow.map(article => `
+                <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden reveal" data-category="${article.category}">
+                    <div class="relative">
+                        <img src="${article.image}" alt="${article.title}" class="w-full h-48 object-cover">
+                        <div class="absolute top-4 left-4 category-tag">
+                            ${getCategoryLabel(article.category)}
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-display text-xl font-bold text-gray-800 mb-3">${article.title}</h3>
+                        <p class="text-gray-600 mb-4 text-sm leading-relaxed">${article.summary}</p>
+                        
+                        <div class="flex items-center mb-4">
+                            <div class="flex items-center mr-4">
+                                <svg class="w-4 h-4 text-gray-400 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                </svg>
+                                <span class="text-gray-500 text-sm">${article.author}</span>
+                            </div>
+                            <div class="flex items-center mr-4">
+                                <svg class="w-4 h-4 text-gray-400 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span class="reading-time">${article.readingTime} min read</span>
+                            </div>
+                        </div>
+                        
+                        <button class="w-full btn-primary text-white py-3 rounded-lg font-semibold" onclick="openArticle('${article.id}')">
+                            Read Full Article
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            // Show/hide load more button
+            const loadMoreBtn = document.getElementById('load-more-articles');
+            loadMoreBtn.style.display = endIndex >= filteredArticles.length ? 'none' : 'block';
+        }
+
+        // Initialize filters
+        function initializeFilters() {
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.category-filter').forEach(b => {
+                        b.classList.remove('active', 'bg-orange-500', 'text-white');
+                        b.classList.add('bg-white', 'text-gray-700');
+                    });
+                    
+                    this.classList.remove('bg-white', 'text-gray-700');
+                    this.classList.add('active', 'bg-orange-500', 'text-white');
+                    
+                    const category = this.dataset.category;
+                    filterArticles(category);
+                });
+            });
+
+            document.getElementById('load-more-articles').addEventListener('click', function() {
+                currentPage++;
+                renderArticles();
+            });
+        }
+
+        // Filter articles
+        function filterArticles(category) {
+            if (category === 'all') {
+                filteredArticles = [...articles];
+            } else {
+                filteredArticles = articles.filter(article => article.category === category);
+            }
+            
+            currentPage = 1;
+            renderArticles();
+        }
+
+        // Get category label
+        function getCategoryLabel(category) {
+            const labels = {
+                'recipes': 'Recipes',
+                'farming': 'Farming Stories',
+                'nutrition': 'Nutrition Tips',
+                'culture': 'Cultural Heritage'
+            };
+            return labels[category] || 'Article';
+        }
+
+        // Open article modal
+        function openArticle(articleId) {
+            const article = articles.find(a => a.id === articleId);
+            if (!article) return;
+
+            document.getElementById('modal-title').textContent = article.title;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="mb-6">
+                    <img src="${article.image}" alt="${article.title}" class="w-full h-64 object-cover rounded-lg mb-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <svg class="w-4 h-4 text-gray-400 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            </svg>
+                            <span class="text-gray-500 text-sm mr-4">${article.author}</span>
+                            <svg class="w-4 h-4 text-gray-400 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span class="reading-time">${article.readingTime} min read</span>
+                        </div>
+                        <span class="text-gray-500 text-sm">${new Date(article.date).toLocaleDateString()}</span>
+                    </div>
+                </div>
+                ${article.content}
+            `;
+            
+            document.getElementById('article-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Initialize admin panel
+        function initializeAdminPanel() {
+            document.getElementById('admin-toggle').addEventListener('click', function() {
+                document.getElementById('admin-panel').classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+
+            document.getElementById('close-admin').addEventListener('click', function() {
+                document.getElementById('admin-panel').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            document.getElementById('close-article').addEventListener('click', function() {
+                document.getElementById('article-modal').classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Article form submission
+            document.getElementById('article-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                publishArticle();
+            });
+
+            document.getElementById('save-draft').addEventListener('click', function() {
+                saveDraft();
+            });
+
+            document.getElementById('preview-article').addEventListener('click', function() {
+                previewArticle();
+            });
+        }
+
+        // Publish article
+        function publishArticle() {
+            const title = document.getElementById('article-title').value;
+            const category = document.getElementById('article-category').value;
+            const summary = document.getElementById('article-summary').value;
+            const content = document.getElementById('article-content').innerHTML;
+            const author = document.getElementById('article-author').value;
+            const readingTime = parseInt(document.getElementById('article-reading-time').value);
+            const image = document.getElementById('article-image').value;
+
+            if (!title || !summary || !content || !author || !readingTime) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const newArticle = {
+                id: 'article-' + Date.now(),
+                title: title,
+                category: category,
+                summary: summary,
+                content: content,
+                author: author,
+                readingTime: readingTime,
+                image: image || 'https://via.placeholder.com/400x300',
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            articles.unshift(newArticle);
+            filteredArticles = [...articles];
+            renderArticles();
+            
+            // Close admin panel and reset form
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.getElementById('article-form').reset();
+            document.getElementById('article-content').innerHTML = '';
+            document.body.style.overflow = 'auto';
+
+            showNotification('Article published successfully!', 'success');
+        }
+
+        // Save draft
+        function saveDraft() {
+            showNotification('Draft saved successfully!', 'success');
+        }
+
+        // Preview article
+        function previewArticle() {
+            const title = document.getElementById('article-title').value;
+            const content = document.getElementById('article-content').innerHTML;
+
+            if (!title || !content) {
+                alert('Please add a title and content to preview.');
+                return;
+            }
+
+            document.getElementById('modal-title').textContent = title + ' (Preview)';
+            document.getElementById('modal-content').innerHTML = content;
+            document.getElementById('article-modal').classList.remove('hidden');
+        }
+
+        // Initialize scroll reveal
+        function initializeScrollReveal() {
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            revealElements.forEach(element => {
+                revealObserver.observe(element);
+            });
+        }
+
+        // Show notification (reuse from main.js)
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-20 right-4 z-50 px-6 py-4 rounded-lg shadow-lg transform translate-x-full transition-transform duration-300`;
+            
+            switch (type) {
+                case 'success':
+                    notification.classList.add('bg-green-500', 'text-white');
+                    break;
+                case 'error':
+                    notification.classList.add('bg-red-500', 'text-white');
+                    break;
+                default:
+                    notification.classList.add('bg-blue-500', 'text-white');
+            }
+            
+            notification.innerHTML = `
+                <div class="flex items-center space-x-2">
+                    <span>${message}</span>
+                    <button onclick="this.parentElement.parentElement.remove()" class="ml-4 text-white hover:text-gray-200">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    if (notification.parentElement) {
+                        notification.remove();
+                    }
+                }, 300);
+            }, 3000);
+        }
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

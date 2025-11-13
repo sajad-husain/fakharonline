@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fakhar Online - Premium Pakistani Fruits | Farm-Fresh Mangoes & Kinnow</title>
+    <meta name="description" content="Experience the authentic taste of Pakistan with Fakhar Online's premium farm-fresh mangoes and kinnow. Direct from our family orchards to your doorstep.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=Dancing+Script:wght@400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Core Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.4.3/echarts.min.js"></script>
+    
+    <style>
+        :root {
+            --golden-yellow: #FFB300;
+            --vibrant-orange: #FF6B35;
+            --fresh-green: #4CAF50;
+            --warm-cream: #FFF8E1;
+            --deep-forest: #2E7D32;
+            --soft-coral: #FF8A65;
+            --charcoal-gray: #424242;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--warm-cream);
+            color: var(--charcoal-gray);
+        }
+        
+        .font-display {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .font-script {
+            font-family: 'Dancing Script', cursive;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, var(--golden-yellow) 0%, var(--fresh-green) 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px) rotateX(5deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--vibrant-orange), var(--golden-yellow));
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.6s ease;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/95 backdrop-blur-sm z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <h1 class="font-display text-2xl font-bold text-gradient">Fakhar Online</h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">Home</a>
+                    <a href="products.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">Products</a>
+                    <a href="about.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">About</a>
+                    <a href="blog.html" class="text-gray-700 hover:text-orange-500 transition-colors font-medium">Blog</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="cart-btn" class="relative p-2 text-gray-700 hover:text-orange-500 transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-1.5 6M7 13l-1.5 6m0 0h9m-9 0V9a2 2 0 012-2h2a2 2 0 012 2v10.01M17 21v-2a2 2 0 00-2-2H9a2 2 0 00-2 2v2"></path>
+                        </svg>
+                        <span id="cart-count" class="absolute -top-1 -right-1 bg-orange-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                    </button>
+                    <a href="https://wa.me/1234567890" class="bg-green-500 text-white p-2 rounded-lg hover:bg-green-600 transition-colors">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.03 22l5.25-1.38c1.45.79 3.08 1.21 4.76 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zM12.04 19.5c-1.55 0-3.05-.47-4.33-1.35l-.31-.18-3.23.85.86-3.15-.2-.32c-.92-1.38-1.41-2.99-1.41-4.64 0-4.68 3.81-8.49 8.49-8.49s8.49 3.81 8.49 8.49-3.81 8.49-8.49 8.49zM16.25 13.37c-.08-.13-.28-.21-.53-.37-.25-.16-1.5-.74-1.73-.82-.23-.09-.4-.13-.57.13-.17.26-.64.82-.79.99-.15.17-.3.18-.56.06-.25-.12-1.06-.39-2.02-1.25-.75-.67-1.25-1.49-1.4-1.75-.15-.26-.02-.4.11-.53.11-.11.25-.3.37-.45.12-.15.16-.26.24-.43.08-.17.04-.32-.02-.45s-.53-1.28-.73-1.75c-.2-.47-.4-.41-.53-.42-.12-.01-.26-.01-.4-.01s-.36.05-.55.15c-.19.1-.75.37-.75 1.25s.77 1.45.87 1.54c.1.09 1.5 2.29 3.63 3.22 1.13.49 2.03.79 2.72 1.02.38.12.71.22.96.29.4.11.76.09 1.05-.06.29-.15.48-.41.53-.61.05-.2.08-.36.08-.53s-.04-.36-.12-.5z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-bg min-h-screen flex items-center justify-center relative overflow-hidden pt-16">
+        <div class="absolute inset-0 bg-black/20"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="reveal">
+                <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6">
+                    <span id="typed-text"></span>
+                </h1>
+                <p class="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto leading-relaxed">
+                    Bringing farm-fresh mangoes and kinnow to your doorstep. With 14 years of export expertise, 
+                    we deliver premium Pakistani fruits with unmatched quality and care.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                    <a href="products.html" class="btn-primary text-white px-8 py-4 rounded-full text-lg font-semibold inline-flex items-center space-x-2">
+                        <span>Shop Fresh Fruits</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                        </svg>
+                    </a>
+                    <a href="about.html" class="border-2 border-white text-white px-8 py-4 rounded-full text-lg font-semibold hover:bg-white hover:text-gray-800 transition-all duration-300">
+                        Our Story
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="absolute top-20 left-10 floating">
+            <div class="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
+                <span class="text-2xl">🥭</span>
+            </div>
+        </div>
+        <div class="absolute bottom-32 right-16 floating" style="animation-delay: -2s;">
+            <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                <span class="text-xl">🍊</span>
+            </div>
+        </div>
+        <div class="absolute top-1/3 right-20 floating" style="animation-delay: -4s;">
+            <div class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center">
+                <span class="text-xl">🌿</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Showcase -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-4">Seasonal Delights</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Discover our premium selection of hand-picked fruits, available at the peak of their season
+                </p>
+            </div>
+            
+            <div class="splide" id="product-carousel">
+                <div class="splide__track">
+                    <ul class="splide__list">
+                        <li class="splide__slide">
+                            <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+                                <div class="relative">
+                                    <img src="https://kimi-web-img.moonshot.cn/img/liciousmangoes.com/7df3ff33a7f258283b108cb7ce9878c4da61f876.jpg" alt="Chaunsa Mango" class="w-full h-64 object-cover">
+                                    <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                        In Season
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display text-2xl font-bold text-gray-800 mb-2">Premium Chaunsa Mango</h3>
+                                    <p class="text-gray-600 mb-4">The king of mangoes, known for its exceptional sweetness and rich aroma. Grown in the fertile plains of Multan.</p>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <span class="text-2xl font-bold text-orange-500">₨1,200/kg</span>
+                                        <div class="flex items-center space-x-1">
+                                            <span class="text-yellow-400">★★★★★</span>
+                                            <span class="text-gray-500 text-sm">(4.8)</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full btn-primary text-white py-3 rounded-lg font-semibold" onclick="addToCart('chaunsa-mango', 'Premium Chaunsa Mango', 1200, 'https://kimi-web-img.moonshot.cn/img/liciousmangoes.com/7df3ff33a7f258283b108cb7ce9878c4da61f876.jpg')">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+                                <div class="relative">
+                                    <img src="https://kimi-web-img.moonshot.cn/img/nawabmango.com/ceccc1cf9e5bc7a72f6b712ed18987400bca14ee.jpg" alt="Anwar Ratol Mango" class="w-full h-64 object-cover">
+                                    <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                        In Season
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display text-2xl font-bold text-gray-800 mb-2">Golden Anwar Ratol</h3>
+                                    <p class="text-gray-600 mb-4">A delicate variety with honey-like sweetness and smooth texture. Perfect for desserts and fresh eating.</p>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <span class="text-2xl font-bold text-orange-500">₨1,400/kg</span>
+                                        <div class="flex items-center space-x-1">
+                                            <span class="text-yellow-400">★★★★★</span>
+                                            <span class="text-gray-500 text-sm">(4.9)</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full btn-primary text-white py-3 rounded-lg font-semibold" onclick="addToCart('anwar-ratol', 'Golden Anwar Ratol', 1400, 'https://kimi-web-img.moonshot.cn/img/nawabmango.com/ceccc1cf9e5bc7a72f6b712ed18987400bca14ee.jpg')">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+                                <div class="relative">
+                                    <img src="https://kimi-web-img.moonshot.cn/img/www.mangonation.pk/85fae623a4bada8cb04f16e7a750dc1c9a51169a.jpg" alt="Kinnow Citrus" class="w-full h-64 object-cover">
+                                    <div class="absolute top-4 right-4 bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                        Winter Special
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display text-2xl font-bold text-gray-800 mb-2">Premium Kinnow</h3>
+                                    <p class="text-gray-600 mb-4">Pakistan's finest citrus fruit, bursting with vitamin C and refreshing flavor. Perfect for winter wellness.</p>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <span class="text-2xl font-bold text-orange-500">₨800/kg</span>
+                                        <div class="flex items-center space-x-1">
+                                            <span class="text-yellow-400">★★★★★</span>
+                                            <span class="text-gray-500 text-sm">(4.7)</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full btn-primary text-white py-3 rounded-lg font-semibold" onclick="addToCart('premium-kinnow', 'Premium Kinnow', 800, 'https://kimi-web-img.moonshot.cn/img/www.mangonation.pk/85fae623a4bada8cb04f16e7a750dc1c9a51169a.jpg')">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                        
+                        <li class="splide__slide">
+                            <div class="card-hover bg-white rounded-2xl shadow-lg overflow-hidden">
+                                <div class="relative">
+                                    <img src="https://kimi-web-img.moonshot.cn/img/bsg-i.nbxc.com/1c704d5bfb5a954481cbfc7c08a30ac9fa0bcecb.jpg" alt="Sindhri Mango" class="w-full h-64 object-cover">
+                                    <div class="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                                        Limited Edition
+                                    </div>
+                                </div>
+                                <div class="p-6">
+                                    <h3 class="font-display text-2xl font-bold text-gray-800 mb-2">Sindhri Mango</h3>
+                                    <p class="text-gray-600 mb-4">The pride of Sindh, known for its large size and unique flavor profile. A true delicacy for mango connoisseurs.</p>
+                                    <div class="flex justify-between items-center mb-4">
+                                        <span class="text-2xl font-bold text-orange-500">₨1,000/kg</span>
+                                        <div class="flex items-center space-x-1">
+                                            <span class="text-yellow-400">★★★★★</span>
+                                            <span class="text-gray-500 text-sm">(4.6)</span>
+                                        </div>
+                                    </div>
+                                    <button class="w-full btn-primary text-white py-3 rounded-lg font-semibold" onclick="addToCart('sindhri-mango', 'Sindhri Mango', 1000, 'https://kimi-web-img.moonshot.cn/img/bsg-i.nbxc.com/1c704d5bfb5a954481cbfc7c08a30ac9fa0bcecb.jpg')">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasonal Calendar -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-4">Seasonal Harvest Calendar</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Plan your fruit purchases with our interactive seasonal availability guide
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-2xl shadow-lg p-8 reveal">
+                <div id="seasonal-calendar" style="height: 400px;"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Elements -->
+    <section class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="text-center reveal">
+                    <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-gray-800 mb-2">Quality Certified</h3>
+                    <p class="text-gray-600">HACCP and Global GAP certified for international quality standards</p>
+                </div>
+                
+                <div class="text-center reveal">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-gray-800 mb-2">Export to Doorstep</h3>
+                    <p class="text-gray-600">14 years of export expertise bringing premium fruits directly to your home</p>
+                </div>
+                
+                <div class="text-center reveal">
+                    <div class="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-display text-xl font-bold text-gray-800 mb-2">Freshness Guarantee</h3>
+                    <p class="text-gray-600">100% satisfaction guarantee with easy returns and refunds</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Customer Testimonials -->
+    <section class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-display text-4xl md:text-5xl font-bold text-gray-800 mb-4">What Our Customers Say</h2>
+                <p class="text-xl text-gray-600">Real stories from fruit lovers across Pakistan</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white rounded-2xl p-6 shadow-lg reveal">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=50&h=50&fit=crop&crop=face" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Ayesha Khan</h4>
+                            <div class="flex text-yellow-400">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"The Chaunsa mangoes were absolutely divine! Perfectly ripe and delivered fresh. Tasted just like the ones from my childhood in Multan."</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg reveal">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Ahmed Malik</h4>
+                            <div class="flex text-yellow-400">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"Premium quality kinnow that reminded me of winter mornings in Lahore. The packaging was excellent and the fruit was incredibly fresh."</p>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-6 shadow-lg reveal">
+                    <div class="flex items-center mb-4">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=50&h=50&fit=crop&crop=face" alt="Customer" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <h4 class="font-semibold text-gray-800">Fatima Sheikh</h4>
+                            <div class="flex text-yellow-400">
+                                ★★★★★
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic">"The Anwar Ratol mangoes were exceptional! Sweet, aromatic, and perfectly ripe. Will definitely order again for Eid celebrations."</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h3 class="font-display text-3xl font-bold text-gradient mb-4">Fakhar Online</h3>
+                <p class="text-gray-300 mb-6">Bringing farm-fresh mangoes and kinnow to your doorstep</p>
+                <div class="flex justify-center space-x-6 mb-8">
+                    <a href="https://wa.me/1234567890" class="text-green-400 hover:text-green-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.03 22l5.25-1.38c1.45.79 3.08 1.21 4.76 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                        </svg>
+                    </a>
+                    <a href="#" class="text-pink-400 hover:text-pink-300 transition-colors">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.347-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z.017 0z"/>
+                        </svg>
+                    </a>
+                </div>
+                <p class="text-gray-400 text-sm">© 2024 Fakhar Online. All rights reserved. Crafted with ❤️ in Pakistan.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed right-0 top-0 h-full w-96 bg-white shadow-2xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="p-6 border-b">
+            <div class="flex justify-between items-center">
+                <h3 class="font-display text-xl font-bold">Shopping Cart</h3>
+                <button id="close-cart" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        
+        <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+            <p class="text-gray-500 text-center">Your cart is empty</p>
+        </div>
+        
+        <div class="border-t p-6">
+            <div class="flex justify-between items-center mb-4">
+                <span class="font-semibold">Total:</span>
+                <span id="cart-total" class="font-bold text-xl text-orange-500">₨0</span>
+            </div>
+            <button id="checkout-btn" class="w-full btn-primary text-white py-3 rounded-lg font-semibold" disabled>
+                Proceed to Checkout
+            </button>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+    <script src="main.js"></script>
+</body>
+</html>
